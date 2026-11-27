@@ -1,33 +1,51 @@
+import java.util.ArrayList;
 
 /**
- * Write a description of class CatalogoProductos here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Guarda y administra la lista de productos. Permite agregar, buscar
+ * por id o por nombre, eliminar y listar los productos.
+ * Las busquedas devuelven null cuando no encuentran nada.
+ *
+ * @author Angelica
+ * @version 26/11/2026
  */
-public class CatalogoProductos
-{
-    // instance variables - replace the example below with your own
-    private int x;
+public class CatalogoProductos {
+    private ArrayList<Producto> productos;
 
-    /**
-     * Constructor for objects of class CatalogoProductos
-     */
-    public CatalogoProductos()
-    {
-        // initialise instance variables
-        x = 0;
+    public CatalogoProductos() {
+        productos = new ArrayList<>();
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public void agregar(Producto p) {
+        if (p == null)
+            throw new IllegalArgumentException("El producto no puede estar vacio");
+        productos.add(p);
+    }
+
+    public Producto buscarPorId(int id) {
+        for (Producto p : productos)
+            if (p.getId() == id) return p;
+        return null;
+    }
+
+    public Producto buscarPorNombre(String nombre) {
+        if (nombre == null) return null;
+        for (Producto p : productos)
+            if (p.getNombre().equalsIgnoreCase(nombre.trim())) return p;
+        return null;
+    }
+
+   
+    public Producto eliminar(int id) {
+        Producto p = buscarPorId(id);
+        if (p != null) productos.remove(p);
+        return p;
+    }
+
+    public ArrayList<Producto> listar() {
+        return new ArrayList<>(productos);   // copia para recorrer los productos del catalogo, para evitar modificaciones 
+    }
+
+    public int size() {
+        return productos.size();
     }
 }
