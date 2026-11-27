@@ -1,73 +1,68 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
- * Prueba la clase CatalogoProductos: agregar, buscar, eliminar
- * y verificar que listar devuelve una copia.
+ * Prueba la clase CatalogoProductos con JUnit 5: agregar, buscar,
+ * eliminar y verificar que listar devuelve una copia.
  *
  * @author Angelica
  * @version 26/11/2026
  */
-public class TesterCatalogo {
+public class CatalogoProductosTest {
 
-    public static void main(String[] args) {
-        CatalogoProductos cat = new CatalogoProductos();
+    private CatalogoProductos cat;
+    private Producto a;
+    private Producto b;
+    private Producto c;
 
-        // Crear productos de prueba
-        Producto a = new Producto("Audifonos", "TiendaX", 100000, 20, 3);
-        Producto b = new Producto("Mouse", "TiendaY", 50000, 0, 1);
-        Producto c = new Producto("Teclado", "TiendaX", 80000, 15, 0);
-
-        // Prueba 1: agregar
+    @BeforeEach
+    void setUp() {
+        cat = new CatalogoProductos();
+        a = new Producto("Audifonos", "TiendaX", 100000, 20, 3);
+        b = new Producto("Mouse", "TiendaY", 50000, 0, 1);
+        c = new Producto("Teclado", "TiendaX", 80000, 15, 0);
         cat.agregar(a);
         cat.agregar(b);
         cat.agregar(c);
-        if (cat.size() == 3) {
-            System.out.println("Agregar: OK");
-        } else {
-            System.out.println("Agregar: FALLO");
-        }
+    }
 
-        // Prueba 2: buscar por id
-        if (cat.buscarPorId(b.getId()) == b) {
-            System.out.println("Buscar por id: OK");
-        } else {
-            System.out.println("Buscar por id: FALLO");
-        }
+    @Test
+    void agregar() {
+        assertEquals(3, cat.size());
+    }
 
-        // Prueba 3: buscar por nombre 
-        if (cat.buscarPorNombre("mouse") == b) {
-            System.out.println("Buscar por nombre: OK");
-        } else {
-            System.out.println("Buscar por nombre: FALLO");
-        }
+    @Test
+    void buscarPorId() {
+        assertSame(b, cat.buscarPorId(b.getId()));
+    }
 
-        // Prueba 4: buscar algo que no existe
-        if (cat.buscarPorNombre("Monitor") == null) {
-            System.out.println("Buscar inexistente: OK");
-        } else {
-            System.out.println("Buscar inexistente: FALLO");
-        }
+    @Test
+    void buscarPorNombre() {
+        assertSame(b, cat.buscarPorNombre("mouse"));
+    }
 
-        // Prueba 5: agregar null debe lanzar excepcion
-        try {
-            cat.agregar(null);
-            System.out.println("Agregar null: FALLO");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Agregar null: OK");
-        }
+    @Test
+    void buscarInexistente() {
+        assertNull(cat.buscarPorNombre("Monitor"));
+    }
 
-        // Prueba 6: eliminar
+    @Test
+    void agregarNullLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class, () -> cat.agregar(null));
+    }
+
+    @Test
+    void eliminar() {
         Producto eliminado = cat.eliminar(b.getId());
-        if (eliminado == b && cat.size() == 2) {
-            System.out.println("Eliminar: OK");
-        } else {
-            System.out.println("Eliminar: FALLO");
-        }
+        assertSame(b, eliminado);
+        assertEquals(2, cat.size());
+    }
 
-        // Prueba 7: listar devuelve una copia, y si se vacia no se arriesga la originss
+    @Test
+    void listarDevuelveCopia() {
         cat.listar().clear();
-        if (cat.size() == 2) {
-            System.out.println("Listar (copia): OK");
-        } else {
-            System.out.println("Listar (copia): FALLO");
-        }
+        assertEquals(3, cat.size());
     }
 }
