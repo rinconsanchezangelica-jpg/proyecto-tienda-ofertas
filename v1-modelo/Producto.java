@@ -17,26 +17,26 @@ public class Producto {
     private int descuento;             // porcentaje entre 0 y 90
     private int stock;
 
-    public Producto(String nombre, String tienda, double precioNormal, int descuento, int stock) {
-        // Primero se valida todo; el ID se asigna solo si los datos son validos
-        if (nombre == null || nombre.trim().isEmpty())
-            throw new IllegalArgumentException("El nombre no puede estar vacio");
-        if (tienda == null || tienda.trim().isEmpty())
-            throw new IllegalArgumentException("La tienda no puede estar vacia");
-        if (precioNormal <= 0)
-            throw new IllegalArgumentException("El precio debe ser mayor que 0");
-        if (descuento < 0 || descuento > 90)
-            throw new IllegalArgumentException("El descuento debe estar entre 0 y 90");
-        if (stock < 0)
-            throw new IllegalArgumentException("El stock no puede ser negativo");
+        public Producto(String nombre, String tienda, double precioNormal, int descuento, int stock) {
+            // Primero se valida todo; el ID se asigna solo si los datos son validos
+            if (nombre == null || nombre.trim().isEmpty())
+                throw new IllegalArgumentException("El nombre no puede estar vacio");
+            if (tienda == null || tienda.trim().isEmpty())
+                throw new IllegalArgumentException("La tienda no puede estar vacia");
+            if (precioNormal <= 0)
+                throw new IllegalArgumentException("El precio debe ser mayor que 0");
+            if (descuento < 0 || descuento > 90)
+                throw new IllegalArgumentException("El descuento debe estar entre 0 y 90");
+            if (stock < 0)
+                throw new IllegalArgumentException("El stock no puede ser negativo");
 
-        this.id = ++contador;
-        this.nombre = nombre.trim();
-        this.tienda = tienda.trim();
-        this.precioNormal = precioNormal;
-        this.descuento = descuento;
-        this.stock = stock;
-    }
+            this.id = ++contador;
+            this.nombre = nombre.trim();
+            this.tienda = tienda.trim();
+            this.precioNormal = precioNormal;
+            this.descuento = descuento;
+            this.stock = stock;
+        }
 
     public int getId() { 
         return id; }

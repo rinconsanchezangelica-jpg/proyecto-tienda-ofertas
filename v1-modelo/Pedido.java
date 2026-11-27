@@ -1,33 +1,48 @@
+import java.util.ArrayList;
 
 /**
  * Write a description of class Pedido here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Erick
+ * @version 1.0v
  */
 public class Pedido
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    ArrayList <Producto> pedido;
 
-    /**
-     * Constructor for objects of class Pedido
-     */
-    public Pedido()
-    {
-        // initialise instance variables
-        x = 0;
+    
+
+    
+    public Pedido(ArrayList <Producto> productos) {
+        if (productos.size() == 0 ) {
+            throw new IllegalStateException("Su pedido no tiene ningun producto.");
+        }
+        this.pedido = productos;
+        
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public int precioTotalSinDescuentos () {
+        int total = 0;
+        for (Producto p : pedido) {
+            total += p.getPrecioNormal();
+        }
+        return total;
     }
+
+
+    public int precioTotalConDescuentos () {
+        int total = 0;
+        for (Producto p : pedido) {
+            total += p.getPrecioFinal();
+        }
+        return total;
+    }
+
+    public int totalDescuentos () {
+        return precioTotalSinDescuentos() - precioTotalConDescuentos(); 
+    }
+
+
+    
+   
 }
