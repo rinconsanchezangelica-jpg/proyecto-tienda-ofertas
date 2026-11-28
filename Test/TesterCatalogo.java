@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Angelica
  * @version 26/11/2026
  */
-public class CatalogoProductosTest {
+public class TesterCatalogo {
 
     private CatalogoProductos cat;
     private Producto a;

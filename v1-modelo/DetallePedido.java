@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class DetallePedido {
     private Producto producto;
     private int cantidad;
-    private ArrayList <DetallePedido> pedido = new ArrayList<DetallePedido>();
     
     public DetallePedido (Producto producto, int cantidad) {
         if (producto == null ) {
