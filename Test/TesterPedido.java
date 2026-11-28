@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Write a description of class TesterPedido here.
  * 
  * @author Erick
- * @version 1.0V
+ * @version 1.1V
  */
 public class TesterPedido {
 
@@ -18,7 +18,6 @@ public class TesterPedido {
         Producto p2 = new Producto ("Camisa", "Shein", 80000 , 5 , 20);
         Producto p3 = new Producto ("Pantalon", "Levis", 120000 , 20 , 8);
         
-        //Lanza una excepcion al querer crear agregar mas stock del que tiene un producto
         assertThrows (IllegalStateException.class, () -> {DetallePedido d1 = new DetallePedido(p1, 20);});
     }
     @Test
@@ -27,6 +26,29 @@ public class TesterPedido {
     
         assertDoesNotThrow(() -> {DetallePedido d1 = new DetallePedido(p1, 2 );});
     }
+    @Test
+    void test_productoNull_lanzaIllegalArgumentException () {
+        Producto p1 = new Producto ("Perfume", "Falabella",
+                100000 , 10 , 15);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> {DetallePedido d1 = new DetallePedido(null , 4); });
+    }
+    @Test
+    void test_anadirNumeroNegativo_lanzaIllegalStateException () {
+        Producto p1 = new Producto ("Perfume", "Falabella",
+                100000 , 10 , 15);
+        assertThrows(IllegalStateException.class, () -> {DetallePedido d1 = new DetallePedido(p1 , -5);});
+
+    }
+    @Test
+    void test_anadirCero_lanzaIllegalStateException () {
+        Producto p1 = new Producto ("Perfume", "Falabella",
+                100000 , 10 , 15);
+        assertThrows(IllegalStateException.class, () -> {DetallePedido d1 = new DetallePedido(p1 , 0);});
+
+    }
+
 
 
 

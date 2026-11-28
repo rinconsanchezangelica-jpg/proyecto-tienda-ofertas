@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Pedido
 {
     private String nombre;
-    private ArrayList<Producto> pedido;
+    private ArrayList<DetallePedido> pedido;
 
     public Pedido(String nombre) {
         validarNombre(nombre);
